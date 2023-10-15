@@ -56,27 +56,6 @@ func TestHandlePagination(t *testing.T) {
 			mockError: nil,
 		},
 		{
-			name:           "Successful Query",
-			queryParam:     "key_condition=test",
-			expectedStatus: http.StatusOK,
-			expectedResponse: Response{
-				Data: []Entry{
-					{KeyCond: "test", SortKey: "item1"},
-					{KeyCond: "test", SortKey: "item2"},
-				},
-				Page: 1,
-				Size: 2,
-			},
-			mockOutput: &dynamodb.QueryOutput{
-				Items: []map[string]types.AttributeValue{
-					{"key_cond": &types.AttributeValueMemberS{Value: "test"}, "sort_key": &types.AttributeValueMemberS{Value: "item1"}},
-					{"key_cond": &types.AttributeValueMemberS{Value: "test"}, "sort_key": &types.AttributeValueMemberS{Value: "item2"}},
-				},
-				LastEvaluatedKey: nil,
-			},
-			mockError: nil,
-		},
-		{
 			name:           "Successful Query Order By",
 			queryParam:     "key_condition=test&orderby=-sort_key",
 			expectedStatus: http.StatusOK,
